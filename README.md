@@ -31,6 +31,7 @@ To create your own resource pack, see the documentation [here](https://github.co
 - Icons for Additional Additions, Copper Equipment, DragonLoot and Tech Reborn by [Ejektaflex](https://github.com/ejektaflex)
 - `it_it` translation by [VladAndreiMorariu](https://github.com/VladAndreiMorariu)
 - `ko_kr` translation by [pkb](https://github.com/XxPKBxX)
+- `pt_br` translation by [kau19an](https://github.com/kau19an)
 - Option to reverse the armor order suggested by [robotkoer](https://www.curseforge.com/members/robotkoer/projects)
 
 Links: [original Forge version](https://www.curseforge.com/minecraft/mc-mods/armor-chroma) · [CurseForge](https://www.curseforge.com/minecraft/mc-mods/armor-chroma-for-fabric) · [GitHub](https://github.com/A5b84/armor-chroma-fabric) · [Modrinth](https://modrinth.com/mod/armor-chroma-for-fabric)
