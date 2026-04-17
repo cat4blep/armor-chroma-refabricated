@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"package": "nukeduck.armorchroma.mixin",
-	"compatibilityLevel": "JAVA_21",
+	"compatibilityLevel": "${mixin_compatibility_level}",
 	"client": [
 		"EntityAttributeInstanceMixin",
 		"InGameHudMixin",

@@ -3,15 +3,6 @@ package nukeduck.armorchroma.config;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.item.ItemStack;
-import nukeduck.armorchroma.ArmorChroma;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,17 +12,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.ItemStack;
+import nukeduck.armorchroma.ArmorChroma;
 
 public class IconData implements SimpleResourceReloadListener<Void> {
     private final Map<String, IconTable> mods = new HashMap<>();
 
     private static final ArmorIcon FALLBACK_ICON = new ArmorIcon(0);
     private static final String DEFAULT = "default";
-    private static final String MINECRAFT = ResourceLocation.DEFAULT_NAMESPACE;
-    private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ArmorChroma.MODID, "icondata");
+    private static final String MINECRAFT = Identifier.DEFAULT_NAMESPACE;
+    private static final Identifier ID = Identifier.fromNamespaceAndPath(ArmorChroma.MODID, "icondata");
 
     @Override
-    public ResourceLocation getFabricId() {
+    public Identifier getFabricId() {
         return ID;
     }
 
@@ -92,7 +91,7 @@ public class IconData implements SimpleResourceReloadListener<Void> {
 
             for (ModContainer modContainer : FabricLoader.getInstance().getAllMods()) {
                 String modid = modContainer.getMetadata().getId();
-                List<Resource> resources = manager.getResourceStack(ResourceLocation.fromNamespaceAndPath(modid, "textures/gui/armor_chroma.json"));
+                List<Resource> resources = manager.getResourceStack(Identifier.fromNamespaceAndPath(modid, "textures/gui/armor_chroma.json"));
                 if (!resources.isEmpty()) {
                     for (Resource resource : resources) {
                         try (Reader reader = new BufferedReader(new InputStreamReader(resource.open()))) {

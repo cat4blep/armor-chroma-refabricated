@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.CommonColors;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.DyedItemColor;
@@ -17,7 +17,7 @@ public final class Util {
     private Util() {}
 
     public static int getColor(ItemStack stack) {
-        if (stack != null && stack.is(ItemTags.DYEABLE)) {
+        if (stack != null && stack.has(DataComponents.DYED_COLOR)) {
             return DyedItemColor.getOrDefault(stack, DyedItemColor.LEATHER_COLOR);
         } else {
             return CommonColors.WHITE;

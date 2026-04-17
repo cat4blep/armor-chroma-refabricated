@@ -30,7 +30,7 @@ public class MaterialHelper {
                 if (asset.equals(EquipmentAssets.TURTLE_SCUTE)) {
                     return TURTLE_MATERIAL;
                 } else {
-                    return asset.location().getPath();
+                    return asset.identifier().getPath();
                 }
             }
         }

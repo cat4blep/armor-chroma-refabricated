@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -69,7 +69,7 @@ public class ArmorChromaDebugCommand {
                     .collect(Collectors.toCollection(ArrayList::new));
         }
 
-        AttributeModifier attributeModifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ArmorChroma.MODID, UUID.randomUUID().toString()), points, AttributeModifier.Operation.ADD_VALUE);
+        AttributeModifier attributeModifier = new AttributeModifier(Identifier.fromNamespaceAndPath(ArmorChroma.MODID, UUID.randomUUID().toString()), points, AttributeModifier.Operation.ADD_VALUE);
         modifiers.add(new ItemAttributeModifiers.Entry(Attributes.ARMOR, attributeModifier, EquipmentSlotGroup.ANY));
         stack.set(DataComponents.ATTRIBUTE_MODIFIERS, new ItemAttributeModifiers(modifiers));
 

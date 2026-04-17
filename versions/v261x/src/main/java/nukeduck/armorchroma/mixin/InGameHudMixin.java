@@ -1,7 +1,7 @@
 package nukeduck.armorchroma.mixin;
 
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 import nukeduck.armorchroma.ArmorChroma;
 import org.spongepowered.asm.mixin.Final;
@@ -25,8 +25,8 @@ public abstract class InGameHudMixin {
     /**
      * Replaces the vanilla armor bar
      */
-    @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
-    private static void onBeforeRenderArmor(GuiGraphics context, Player player, int top, int heartRows, int heartRowsSpacing, int left, CallbackInfo info) {
+    @Inject(method = "extractArmor", at = @At("HEAD"), cancellable = true)
+    private static void onBeforeRenderArmor(GuiGraphicsExtractor context, Player player, int top, int heartRows, int heartRowsSpacing, int left, CallbackInfo info) {
         if (ArmorChroma.config.isEnabled()) {
             info.cancel();
             top -= (heartRows - 1) * heartRowsSpacing + LINE_HEIGHT;

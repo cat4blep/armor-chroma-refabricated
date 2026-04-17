@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import nukeduck.armorchroma.config.ArmorChromaConfig;
 import nukeduck.armorchroma.config.ArmorChromaConfig.ArmorChromaAutoConfig;
@@ -34,7 +34,7 @@ public class ArmorChroma implements ClientModInitializer {
         manager.registerReloadListener(ICON_DATA);
 
         ModContainer container = FabricLoader.getInstance().getModContainer(MODID).orElseThrow();
-        ResourceManagerHelper.registerBuiltinResourcePack(ResourceLocation.fromNamespaceAndPath(MODID, "alternative-icons"), container, ResourcePackActivationType.NORMAL);
+        ResourceManagerHelper.registerBuiltinResourcePack(Identifier.fromNamespaceAndPath(MODID, "alternative-icons"), container, ResourcePackActivationType.NORMAL);
 
         if (USE_AUTO_CONFIG) {
             AutoConfig.register(ArmorChromaAutoConfig.class, GsonConfigSerializer::new);

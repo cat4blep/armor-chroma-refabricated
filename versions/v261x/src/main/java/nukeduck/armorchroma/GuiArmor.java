@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
-import static net.minecraft.client.renderer.entity.ItemRenderer.ENCHANTED_GLINT_ITEM;
 import static nukeduck.armorchroma.ArmorChroma.TEXTURE_SIZE;
 
 /**
@@ -29,11 +28,12 @@ import static nukeduck.armorchroma.ArmorChroma.TEXTURE_SIZE;
  */
 public class GuiArmor {
 
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(ArmorChroma.MODID, "textures/gui/background.png");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(ArmorChroma.MODID, "textures/gui/background.png");
+    private static final Identifier ENCHANTED_GLINT_ITEM = Identifier.withDefaultNamespace("textures/misc/enchanted_glint_item.png");
 
     /**
      * The colors used for the border of the bar at different levels
-     * @see #drawBackground(GuiGraphics, int, int, int)
+     * @see #drawBackground(GuiGraphicsExtractor, int, int, int)
      */
     private static final int[] BG_COLORS = {0xff3acaff, 0xff3be55a, 0xffffff00, 0xffff9d00, 0xffed3200, 0xff7130c1};
 
@@ -58,7 +58,7 @@ public class GuiArmor {
     /**
      * Render the bar as a full replacement for vanilla
      */
-    public void draw(GuiGraphics context, int x, int y) {
+    public void draw(GuiGraphicsExtractor context, int x, int y) {
         List<ArmorBarSegment> segments = new ArrayList<>(EquipmentSlot.VALUES.size());
         int totalPoints = buildArmorSegments(client.player, segments);
         if (totalPoints <= 0) return;
@@ -79,7 +79,7 @@ public class GuiArmor {
      * @param level The colored border level where a level is one full row
      * ({@link #ARMOR_PER_ROW} armor points)
      */
-    private void drawBackground(GuiGraphics context, int x, int y, int level) {
+    private void drawBackground(GuiGraphicsExtractor context, int x, int y, int level) {
         boolean drawBorder = level > 0;
 
         // Plain background
@@ -99,7 +99,7 @@ public class GuiArmor {
      * Draws all the rows needed for a single piece of armor
      * @param barPoints The number of points in the bar before this piece
      */
-    private void drawSegment(GuiGraphics context, int x, int y, int barPoints, ArmorBarSegment segment) {
+    private void drawSegment(GuiGraphicsExtractor context, int x, int y, int barPoints, ArmorBarSegment segment) {
         int space;
         y -= (barPoints / ARMOR_PER_ROW) * ROW_SPACING; // Offset to account for full bars
         int stackPoints = segment.getArmorPoints();
@@ -126,7 +126,7 @@ public class GuiArmor {
      * Renders a partial row of icons, {@code stackPoints} wide
      * @param barPoints The points already in the bar
      */
-    private void drawPartialRow(GuiGraphics context, int left, int top, int barPoints, int stackPoints, ArmorBarSegment segment) {
+    private void drawPartialRow(GuiGraphicsExtractor context, int left, int top, int barPoints, int stackPoints, ArmorBarSegment segment) {
         ArmorIcon icon = segment.getIcon();
 
         if (segment.hasGlint()) {
@@ -232,7 +232,7 @@ public class GuiArmor {
         return compressedRows;
     }
 
-    private void drawMaskedIcon(GuiGraphics context, int x, int y, ArmorIcon icon, ArmorIcon mask) {
+    private void drawMaskedIcon(GuiGraphicsExtractor context, int x, int y, ArmorIcon icon, ArmorIcon mask) {
         mask.draw(context, x, y);
         icon.drawMasked(context, x, y);
     }
@@ -241,14 +241,14 @@ public class GuiArmor {
      * Render an item glint over the specified quad, blending with equal depth
      */
     @SuppressWarnings("SameParameterValue")
-    private void drawTexturedGlintRect(GuiGraphics context, int x, int y, float u, float v, int width, int height) {
+    private void drawTexturedGlintRect(GuiGraphicsExtractor context, int x, int y, float u, float v, int width, int height) {
         float intensity = client.options.glintStrength().get().floatValue()
                 * ArmorChroma.config.glintIntensity();
         int color = ARGB.white(Mth.clamp(intensity, 0, 1));
         context.blit(RenderPipelines.GLINT, ENCHANTED_GLINT_ITEM, x, y, u, v, width, height, TEXTURE_SIZE, TEXTURE_SIZE, color);
     }
 
-    private void addZOffset(GuiGraphics context, int z) {
-        // GuiGraphics uses 2D stratums in these versions, so explicit z translation is not available.
+    private void addZOffset(GuiGraphicsExtractor context, int z) {
+        // GuiGraphicsExtractor uses stratums instead of z translation, and draw order is sufficient here.
     }
 }

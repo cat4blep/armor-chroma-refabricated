@@ -8,3 +8,10 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+rootProject.name = 'armorchroma'
+
+include('v121x', 'v261x')
+
+project(':v121x').projectDir = file('versions/v121x')
+project(':v261x').projectDir = file('versions/v261x')
