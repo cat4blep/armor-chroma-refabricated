@@ -6,7 +6,8 @@
         "iron": 3,
         "leather": 4,
         "turtle": 5,
-        "netherite": 6
+        "netherite": 6,
+        "copper": 7
     },
     "special": {
         "default": 3,

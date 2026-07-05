@@ -30,6 +30,9 @@ import static nukeduck.armorchroma.ArmorChroma.TEXTURE_SIZE;
 public class GuiArmor {
 
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(ArmorChroma.MODID, "textures/gui/background.png");
+    private static final int LEFT_HALF_U_OFFSET = 0;
+    private static final int RIGHT_HALF_U_OFFSET = 4;
+    private static final int HALF_ICON_WIDTH = 5;
 
     /**
      * The colors used for the border of the bar at different levels
@@ -139,7 +142,7 @@ public class GuiArmor {
         // Drawing icons starts here
 
         if (i == 1) { // leading half icon
-            drawMaskedIcon(context, x - 4, top, icon, segment.getLeadingMask());
+            drawMaskedIcon(context, x - 4, top, icon, segment.getLeadingMask(), RIGHT_HALF_U_OFFSET);
             x += 4;
         }
 
@@ -148,7 +151,7 @@ public class GuiArmor {
         }
 
         if (i < stackPoints) { // Trailing half icon
-            drawMaskedIcon(context, x, top, icon, segment.getTrailingMask());
+            drawMaskedIcon(context, x, top, icon, segment.getTrailingMask(), LEFT_HALF_U_OFFSET);
         }
 
         if (segment.hasGlint()) { // Draw one glint quad for the whole row
@@ -232,9 +235,9 @@ public class GuiArmor {
         return compressedRows;
     }
 
-    private void drawMaskedIcon(GuiGraphics context, int x, int y, ArmorIcon icon, ArmorIcon mask) {
-        mask.draw(context, x, y);
-        icon.drawMasked(context, x, y);
+    private void drawMaskedIcon(GuiGraphics context, int x, int y, ArmorIcon icon, ArmorIcon mask, int uOffset) {
+        mask.draw(context, x, y, uOffset, HALF_ICON_WIDTH);
+        icon.drawMasked(context, x, y, uOffset, HALF_ICON_WIDTH);
     }
 
     /**

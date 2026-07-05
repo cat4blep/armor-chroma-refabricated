@@ -49,12 +49,24 @@ public class ArmorIcon {
         draw(context, RenderPipelines.GUI_TEXTURED, x, y);
     }
 
+    public void draw(GuiGraphicsExtractor context, int x, int y, int uOffset, int width) {
+        draw(context, RenderPipelines.GUI_TEXTURED, x + uOffset, y, u + uOffset, v, width, ICON_SIZE);
+    }
+
     public void drawMasked(GuiGraphicsExtractor context, int x, int y) {
         draw(context, ArmorChromaRenderLayers.getMaskedIcon(), x, y);
     }
 
+    public void drawMasked(GuiGraphicsExtractor context, int x, int y, int uOffset, int width) {
+        draw(context, ArmorChromaRenderLayers.getMaskedIcon(), x + uOffset, y, u + uOffset, v, width, ICON_SIZE);
+    }
+
     private void draw(GuiGraphicsExtractor context, RenderPipeline pipeline, int x, int y) {
-        context.blit(pipeline, texture, x, y, u, v, ICON_SIZE, ICON_SIZE, TEXTURE_SIZE, TEXTURE_SIZE, color);
+        draw(context, pipeline, x, y, u, v, ICON_SIZE, ICON_SIZE);
+    }
+
+    private void draw(GuiGraphicsExtractor context, RenderPipeline pipeline, int x, int y, int u, int v, int width, int height) {
+        context.blit(pipeline, texture, x, y, u, v, width, height, TEXTURE_SIZE, TEXTURE_SIZE, color);
     }
 
     @Override
