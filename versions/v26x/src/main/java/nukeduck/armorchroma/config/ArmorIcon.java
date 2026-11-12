@@ -3,9 +3,7 @@ package nukeduck.armorchroma.config;
 import nukeduck.armorchroma.ArmorChromaRenderLayers;
 
 import java.util.Objects;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.CommonColors;
 
@@ -46,27 +44,19 @@ public class ArmorIcon {
     }
 
     public void draw(GuiGraphicsExtractor context, int x, int y) {
-        draw(context, RenderPipelines.GUI_TEXTURED, x, y);
+        draw(context, x, y, 0, ICON_SIZE);
     }
 
     public void draw(GuiGraphicsExtractor context, int x, int y, int uOffset, int width) {
-        draw(context, RenderPipelines.GUI_TEXTURED, x + uOffset, y, u + uOffset, v, width, ICON_SIZE);
+        ArmorChromaRenderLayers.blitIcon(context, texture, x + uOffset, y, u + uOffset, v, width, ICON_SIZE, color, false);
     }
 
     public void drawMasked(GuiGraphicsExtractor context, int x, int y) {
-        draw(context, ArmorChromaRenderLayers.getMaskedIcon(), x, y);
+        drawMasked(context, x, y, 0, ICON_SIZE);
     }
 
     public void drawMasked(GuiGraphicsExtractor context, int x, int y, int uOffset, int width) {
-        draw(context, ArmorChromaRenderLayers.getMaskedIcon(), x + uOffset, y, u + uOffset, v, width, ICON_SIZE);
-    }
-
-    private void draw(GuiGraphicsExtractor context, RenderPipeline pipeline, int x, int y) {
-        draw(context, pipeline, x, y, u, v, ICON_SIZE, ICON_SIZE);
-    }
-
-    private void draw(GuiGraphicsExtractor context, RenderPipeline pipeline, int x, int y, int u, int v, int width, int height) {
-        context.blit(pipeline, texture, x, y, u, v, width, height, TEXTURE_SIZE, TEXTURE_SIZE, color);
+        ArmorChromaRenderLayers.blitIcon(context, texture, x + uOffset, y, u + uOffset, v, width, ICON_SIZE, color, true);
     }
 
     @Override

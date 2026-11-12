@@ -1,7 +1,7 @@
 plugins {
 	id 'base'
-	id 'fabric-loom' version '1.16.1' apply false
-	id 'net.fabricmc.fabric-loom' version '1.16.1' apply false
+	id 'fabric-loom' version '1.17.21' apply false
+	id 'net.fabricmc.fabric-loom' version '1.17.21' apply false
 }
 
 def versionTargets = [
@@ -34,6 +34,38 @@ def versionTargets = [
 		mixinCompatibilityLevel: 'JAVA_25',
 		artifactSuffix        : 'mc26.1.x',
 		artifactVersionSuffix : '26.1.x'
+	],
+	v262: [
+		loomPlugin            : 'net.fabricmc.fabric-loom',
+		usesMappings          : false,
+		minecraftVersion      : '26.2',
+		loaderVersion         : '0.19.5',
+		fabricApiVersion      : '0.161.0+26.2',
+		modMenuVersion        : '20.0.3',
+		clothConfigVersion    : '26.2.155',
+		minecraftDependency   : '26.2',
+		loaderDependency      : '>=0.19.5',
+		javaVersion           : 25,
+		mixinCompatibilityLevel: 'JAVA_25',
+		hudSourceDir          : 'versions/v262/src/hud/java',
+		artifactSuffix        : 'mc26.2',
+		artifactVersionSuffix : '26.2'
+	],
+	v263: [
+		loomPlugin            : 'net.fabricmc.fabric-loom',
+		usesMappings          : false,
+		minecraftVersion      : '26.3',
+		loaderVersion         : '0.19.5',
+		fabricApiVersion      : '0.166.2+26.3',
+		modMenuVersion        : '21.0.0',
+		clothConfigVersion    : '26.3.159',
+		minecraftDependency   : '26.3',
+		loaderDependency      : '>=0.19.5',
+		javaVersion           : 25,
+		mixinCompatibilityLevel: 'JAVA_25',
+		hudSourceDir          : 'versions/v262/src/hud/java',
+		artifactSuffix        : 'mc26.3',
+		artifactVersionSuffix : '26.3'
 	]
 ]
 
@@ -61,10 +93,14 @@ subprojects {
 
 	sourceSets {
 		main {
-			File projectJavaDir = project.file("src/main/java")
-			java.setSrcDirs(projectJavaDir.exists()
-					? [projectJavaDir]
-					: [rootProject.file("src/main/java")])
+			if (target.usesMappings) {
+				java.setSrcDirs([rootProject.file("src/main/java")])
+			} else {
+				java.srcDir(rootProject.file("versions/v26x/src/main/java"))
+				if (target.hudSourceDir) {
+					java.srcDir(rootProject.file(target.hudSourceDir))
+				}
+			}
 			resources.setSrcDirs([rootProject.file("src/main/resources")])
 		}
 	}

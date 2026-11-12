@@ -7,8 +7,11 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.platform.DestFactor;
 import com.mojang.blaze3d.platform.SourceFactor;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
+
+import static nukeduck.armorchroma.ArmorChroma.TEXTURE_SIZE;
 
 public class ArmorChromaRenderLayers {
 
@@ -24,7 +27,9 @@ public class ArmorChromaRenderLayers {
                     .withDepthStencilState(new DepthStencilState(CompareOp.EQUAL, false))
                     .build());
 
-    public static RenderPipeline getMaskedIcon() {
-        return MASKED_ICON_PIPELINE;
+    public static void blitIcon(GuiGraphicsExtractor context, Identifier texture, int x, int y,
+                                int u, int v, int width, int height, int color, boolean masked) {
+        RenderPipeline pipeline = masked ? MASKED_ICON_PIPELINE : RenderPipelines.GUI_TEXTURED;
+        context.blit(pipeline, texture, x, y, u, v, width, height, TEXTURE_SIZE, TEXTURE_SIZE, color);
     }
 }

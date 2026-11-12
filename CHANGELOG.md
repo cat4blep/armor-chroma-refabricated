@@ -2,6 +2,10 @@
 
 Different game version branches will show releases for their respective version.
 
+## [Unreleased]
+- Added Fabric support for Minecraft 26.2 and 26.3.
+- Updated the built-in alternative icons pack metadata for modern Minecraft versions.
+
 ## [1.4] - 2019-01-29
 This release is a full release version of the previous release and does not have any changes.
 

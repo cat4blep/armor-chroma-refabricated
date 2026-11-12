@@ -11,7 +11,9 @@ pluginManagement {
 
 rootProject.name = 'armorchroma'
 
-include('v121x', 'v261x')
+include('v121x', 'v261x', 'v262', 'v263')
 
 project(':v121x').projectDir = file('versions/v121x')
 project(':v261x').projectDir = file('versions/v261x')
+project(':v262').projectDir = file('versions/v262')
+project(':v263').projectDir = file('versions/v263')

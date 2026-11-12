@@ -39,3 +39,5 @@ jobs:
           path: |
             versions/v121x/build/libs/*.jar
             versions/v261x/build/libs/*.jar
+            versions/v262/build/libs/*.jar
+            versions/v263/build/libs/*.jar
